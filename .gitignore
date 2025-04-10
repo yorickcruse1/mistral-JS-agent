@@ -1,3 +1,7 @@
+#Temp files
+temp_function.js
+temp_test.js
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
