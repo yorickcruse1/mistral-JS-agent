@@ -37,6 +37,7 @@ def run_javascript_agent(query):
             messages=[{"role": "user", "content": query}]
         )
         result = response.choices[0].message.content
+        log_message(result)
         return result
     except Exception as e:
         log_message(f"Request failed: {e}. Please check your request.", level="ERROR")
@@ -63,13 +64,13 @@ def extract_code(result):
 
     retry = False
     log_message("### Extracting JavaScript code")
-    js_function = extract_pattern(result, r'```javascript\n(.*?)```')
+    js_function = extract_pattern(result, r'## Javascript function(.*?)## Test case')
     if not js_function:
         retry = True
         log_message("JavaScript function failed to generate or wrong output format. Setting retry to True.", level="WARNING")
 
     log_message("### Extracting test case")
-    test_function = extract_pattern(result, r'```javascript\n(.*?)```')
+    test_function = extract_pattern(result, r'## Test case(.*?)```')
     if not test_function:
         retry = True
         log_message("Test function failed to generate or wrong output format. Setting retry to True.", level="WARNING")
