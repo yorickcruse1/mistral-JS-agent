@@ -64,13 +64,13 @@ def extract_code(result):
 
     retry = False
     log_message("### Extracting JavaScript code")
-    js_function = extract_pattern(result, r'## Javascript function(.*?)## Test case')
+    js_function = extract_pattern(result, r'## Javascript function\s*(.*?)## Test case')
     if not js_function:
         retry = True
         log_message("JavaScript function failed to generate or wrong output format. Setting retry to True.", level="WARNING")
 
     log_message("### Extracting test case")
-    test_function = extract_pattern(result, r'## Test case(.*?)```')
+    test_function = extract_pattern(result, r'Test case\s*(.*)')
     if not test_function:
         retry = True
         log_message("Test function failed to generate or wrong output format. Setting retry to True.", level="WARNING")
